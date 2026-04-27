@@ -15,6 +15,8 @@ class Config:
     UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB
     ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "webp"}
+    # Comma-separated list of allowed frontend origins for CORS.
+    CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:3000")
 
 
 class DevelopmentConfig(Config):

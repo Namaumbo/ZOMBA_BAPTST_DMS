@@ -22,7 +22,12 @@ def create_app(env: str = None) -> Flask:
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
-    CORS(app, resources={r"/api/*": {"origins": "*"}})
+    cors_origins = [
+        origin.strip()
+        for origin in str(app.config.get("CORS_ORIGINS", "")).split(",")
+        if origin.strip()
+    ]
+    CORS(app, resources={r"/api/*": {"origins": cors_origins or "*"}})
 
     # Register blueprints
     from app.routes.auth import auth_bp
@@ -36,5 +41,9 @@ def create_app(env: str = None) -> Flask:
     app.register_blueprint(departments_bp, url_prefix="/api/v1/departments")
     app.register_blueprint(reports_bp, url_prefix="/api/v1/reports")
     app.register_blueprint(users_bp, url_prefix="/api/v1/users")
+
+    @app.get("/api/v1/health")
+    def health_check():
+        return {"status": "ok"}, 200
 
     return app
