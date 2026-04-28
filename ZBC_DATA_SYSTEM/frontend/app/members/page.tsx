@@ -46,7 +46,7 @@ export default function MembersPage() {
           {hasRole(user, "admin", "data-entry") && (
             <Link
               href="/members/new"
-              className="inline-flex items-center gap-2 bg-blue-800 hover:bg-blue-900 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition"
+              className="inline-flex items-center gap-2 bg-purple-800 hover:bg-purple-900 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition"
             >
               <Plus className="w-4 h-4" /> Register Member
             </Link>
@@ -62,13 +62,13 @@ export default function MembersPage() {
               placeholder="Search by name, number, phone…"
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-              className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
           <select
             value={status}
             onChange={(e) => { setStatus(e.target.value); setPage(1); }}
-            className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+            className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
           >
             <option value="">All Statuses</option>
             <option value="active">Active</option>
@@ -133,7 +133,7 @@ export default function MembersPage() {
                         <td className="px-4 py-3">
                           <Link
                             href={`/members/${m.id}`}
-                            className="text-blue-700 hover:text-blue-900 font-medium text-xs"
+                            className="text-purple-700 hover:text-purple-900 font-medium text-xs"
                           >
                             View
                           </Link>

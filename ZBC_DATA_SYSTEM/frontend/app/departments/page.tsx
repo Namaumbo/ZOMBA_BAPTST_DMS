@@ -54,7 +54,7 @@ export default function DepartmentsPage() {
           {isAdmin && (
             <button
               onClick={() => setShowForm((v) => !v)}
-              className="flex items-center gap-2 bg-blue-800 hover:bg-blue-900 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition"
+              className="flex items-center gap-2 bg-purple-800 hover:bg-purple-900 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition"
             >
               <Plus className="w-4 h-4" /> Add Department
             </button>
@@ -77,7 +77,7 @@ export default function DepartmentsPage() {
             </div>
             <div className="flex gap-3">
               <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 border border-slate-200 rounded-lg text-sm hover:bg-slate-50">Cancel</button>
-              <button type="submit" disabled={isSubmitting || createMutation.isPending} className="px-4 py-2 bg-blue-800 text-white rounded-lg text-sm font-medium disabled:opacity-60 flex items-center gap-2">
+              <button type="submit" disabled={isSubmitting || createMutation.isPending} className="px-4 py-2 bg-purple-800 text-white rounded-lg text-sm font-medium disabled:opacity-60 flex items-center gap-2">
                 {createMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
                 Save
               </button>
@@ -95,7 +95,7 @@ export default function DepartmentsPage() {
             : departments?.map((dept) => (
                 <div key={dept.id} className="flex items-center justify-between px-5 py-4">
                   <div className="flex items-center gap-3">
-                    <Building2 className="w-5 h-5 text-blue-300 shrink-0" />
+                    <Building2 className="w-5 h-5 text-purple-300 shrink-0" />
                     <div>
                       <p className="font-medium text-slate-800">{dept.name}</p>
                       {dept.description && <p className="text-xs text-slate-400">{dept.description}</p>}

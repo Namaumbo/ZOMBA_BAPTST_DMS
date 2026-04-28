@@ -140,7 +140,7 @@ export default function NewMemberPage() {
                   videoConstraints={{ facingMode: "user" }}
                 />
                 <div className="flex gap-3">
-                  <button type="button" onClick={captureWebcam} className="flex-1 bg-blue-800 text-white py-2 rounded-lg text-sm font-medium">
+                  <button type="button" onClick={captureWebcam} className="flex-1 bg-purple-800 text-white py-2 rounded-lg text-sm font-medium">
                     Capture
                   </button>
                   <button type="button" onClick={() => setPhotoMode("none")} className="px-4 py-2 border border-slate-200 rounded-lg text-sm">
@@ -157,7 +157,7 @@ export default function NewMemberPage() {
                     <img
                       src={capturedPhoto ?? (uploadedFile ? URL.createObjectURL(uploadedFile) : "")}
                       alt="Member photo"
-                      className="w-32 h-32 object-cover rounded-full border-4 border-blue-100"
+                      className="w-32 h-32 object-cover rounded-full border-4 border-purple-100"
                     />
                     <button
                       type="button"
@@ -266,7 +266,7 @@ export default function NewMemberPage() {
                       onClick={() => toggleDept(dept.id)}
                       className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
                         selectedDepts.includes(dept.id)
-                          ? "bg-blue-800 text-white border-blue-800"
+                          ? "bg-purple-800 text-white border-purple-800"
                           : "border-slate-200 text-slate-600 hover:bg-slate-50"
                       }`}
                     >
@@ -295,7 +295,7 @@ export default function NewMemberPage() {
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="flex-1 sm:flex-none bg-blue-800 hover:bg-blue-900 text-white px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 disabled:opacity-60"
+              className="flex-1 sm:flex-none bg-purple-800 hover:bg-purple-900 text-white px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 disabled:opacity-60"
             >
               {mutation.isPending ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving…</> : "Register Member"}
             </button>

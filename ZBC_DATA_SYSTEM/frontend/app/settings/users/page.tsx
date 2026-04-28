@@ -30,7 +30,7 @@ type EditData = z.infer<typeof editSchema>;
 
 const ROLE_COLORS: Record<string, string> = {
   admin: "bg-violet-100 text-violet-700",
-  "data-entry": "bg-blue-100 text-blue-700",
+  "data-entry": "bg-purple-100 text-purple-700",
   viewer: "bg-slate-100 text-slate-600",
 };
 
@@ -108,7 +108,7 @@ export default function UsersPage() {
           </div>
           <button
             onClick={() => setShowCreate((v) => !v)}
-            className="flex items-center gap-2 bg-blue-800 hover:bg-blue-900 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition"
+            className="flex items-center gap-2 bg-purple-800 hover:bg-purple-900 text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition"
           >
             <Plus className="w-4 h-4" /> Add User
           </button>
@@ -147,7 +147,7 @@ export default function UsersPage() {
             </div>
             <div className="flex gap-3">
               <button type="button" onClick={() => setShowCreate(false)} className="px-4 py-2 border border-slate-200 rounded-lg text-sm hover:bg-slate-50">Cancel</button>
-              <button type="submit" disabled={createMutation.isPending} className="px-4 py-2 bg-blue-800 text-white rounded-lg text-sm font-medium disabled:opacity-60 flex items-center gap-2">
+              <button type="submit" disabled={createMutation.isPending} className="px-4 py-2 bg-purple-800 text-white rounded-lg text-sm font-medium disabled:opacity-60 flex items-center gap-2">
                 {createMutation.isPending && <Loader2 className="w-4 h-4 animate-spin" />}
                 Create User
               </button>
@@ -197,7 +197,7 @@ export default function UsersPage() {
                       </div>
                       <div className="flex gap-3">
                         <button type="button" onClick={() => setEditingId(null)} className="flex items-center gap-1 px-3 py-1.5 border border-slate-200 rounded-lg text-sm hover:bg-slate-50"><X className="w-4 h-4" /> Cancel</button>
-                        <button type="submit" disabled={updateMutation.isPending} className="flex items-center gap-1 px-3 py-1.5 bg-blue-800 text-white rounded-lg text-sm font-medium disabled:opacity-60">
+                        <button type="submit" disabled={updateMutation.isPending} className="flex items-center gap-1 px-3 py-1.5 bg-purple-800 text-white rounded-lg text-sm font-medium disabled:opacity-60">
                           {updateMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                           Save
                         </button>
@@ -206,7 +206,7 @@ export default function UsersPage() {
                   ) : (
                     <div className="flex items-center justify-between px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-sm uppercase shrink-0">
+                        <div className="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-sm uppercase shrink-0">
                           {u.username[0]}
                         </div>
                         <div>

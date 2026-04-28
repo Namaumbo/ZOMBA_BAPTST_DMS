@@ -27,12 +27,12 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
   const { user, logout } = useAuth();
 
   return (
-    <div className="flex flex-col h-full bg-blue-900 text-white w-64">
-      <div className="flex items-center gap-3 px-6 py-5 border-b border-blue-800">
-        <Church className="w-8 h-8 text-blue-300 shrink-0" />
+    <div className="flex flex-col h-full bg-purple-900 text-white w-64">
+      <div className="flex items-center gap-3 px-6 py-5 border-b border-purple-800">
+        <Church className="w-8 h-8 text-purple-300 shrink-0" />
         <div>
           <p className="font-bold text-sm leading-tight">ZBC Church DMS</p>
-          <p className="text-blue-300 text-xs">Data Management</p>
+          <p className="text-purple-300 text-xs">Data Management</p>
         </div>
       </div>
 
@@ -47,8 +47,8 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition",
                 pathname.startsWith(href)
-                  ? "bg-blue-700 text-white"
-                  : "text-blue-200 hover:bg-blue-800 hover:text-white"
+                  ? "bg-purple-700 text-white"
+                  : "text-purple-200 hover:bg-purple-800 hover:text-white"
               )}
             >
               <Icon className="w-4 h-4 shrink-0" />
@@ -57,19 +57,19 @@ export function Sidebar({ onClose }: { onClose?: () => void }) {
           ))}
       </nav>
 
-      <div className="px-3 py-4 border-t border-blue-800">
+      <div className="px-3 py-4 border-t border-purple-800">
         <div className="flex items-center gap-3 px-3 py-2 mb-2">
-          <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-sm font-bold uppercase shrink-0">
+          <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-sm font-bold uppercase shrink-0">
             {user?.username?.[0]}
           </div>
           <div className="min-w-0">
             <p className="text-sm font-medium truncate">{user?.username}</p>
-            <p className="text-blue-300 text-xs capitalize">{user?.role}</p>
+            <p className="text-purple-300 text-xs capitalize">{user?.role}</p>
           </div>
         </div>
         <button
           onClick={logout}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-blue-200 hover:bg-blue-800 hover:text-white transition"
+          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-purple-200 hover:bg-purple-800 hover:text-white transition"
         >
           <LogOut className="w-4 h-4 shrink-0" />
           Sign Out

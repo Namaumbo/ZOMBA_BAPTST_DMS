@@ -87,7 +87,7 @@ export default function ReportsPage() {
             <button
               onClick={() => download("pdf")}
               disabled={downloading !== null}
-              className="w-full flex items-center justify-between px-5 py-4 border-2 border-blue-100 hover:border-blue-300 rounded-xl group transition disabled:opacity-50"
+              className="w-full flex items-center justify-between px-5 py-4 border-2 border-purple-100 hover:border-purple-300 rounded-xl group transition disabled:opacity-50"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-red-50 rounded-lg group-hover:bg-red-100 transition">
@@ -108,7 +108,7 @@ export default function ReportsPage() {
             <button
               onClick={() => download("excel")}
               disabled={downloading !== null}
-              className="w-full flex items-center justify-between px-5 py-4 border-2 border-blue-100 hover:border-blue-300 rounded-xl group transition disabled:opacity-50"
+              className="w-full flex items-center justify-between px-5 py-4 border-2 border-purple-100 hover:border-purple-300 rounded-xl group transition disabled:opacity-50"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-emerald-50 rounded-lg group-hover:bg-emerald-100 transition">

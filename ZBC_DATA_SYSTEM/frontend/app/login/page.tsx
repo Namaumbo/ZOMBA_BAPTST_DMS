@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "@/context/AuthContext";
 import { Church, Eye, EyeOff, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 const schema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -37,14 +38,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-purple-800 to-purple-700 px-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-2xl p-8">
           <div className="flex flex-col items-center mb-8">
-            <div className="bg-blue-100 p-4 rounded-full mb-4">
-              <Church className="w-10 h-10 text-blue-800" />
+            <div>
+              <Image src="/image.png" alt="ZBC Church DMS" width={200} height={200} />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900">ZBC Church DMS</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Data Management System</h1>
             <p className="text-gray-500 text-sm mt-1">Sign in to your account</p>
           </div>
 
@@ -63,7 +64,7 @@ export default function LoginPage() {
                 {...register("username")}
                 type="text"
                 autoComplete="username"
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                 placeholder="Enter your username"
               />
               {errors.username && (
@@ -80,7 +81,7 @@ export default function LoginPage() {
                   {...register("password")}
                   type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition pr-10"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition pr-10"
                   placeholder="Enter your password"
                 />
                 <button
@@ -99,7 +100,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-blue-800 hover:bg-blue-900 text-white font-semibold py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-2 disabled:opacity-60"
+              className="w-full bg-purple-800 hover:bg-purple-900 text-white font-semibold py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-2 disabled:opacity-60"
             >
               {isSubmitting ? (
                 <>
@@ -111,7 +112,7 @@ export default function LoginPage() {
             </button>
           </form>
         </div>
-        <p className="text-center text-blue-200 text-xs mt-6">
+        <p className="text-center text-purple-200 text-xs mt-6">
           ZBC Church Data Management System
         </p>
       </div>

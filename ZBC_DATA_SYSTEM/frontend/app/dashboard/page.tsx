@@ -55,7 +55,7 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <StatCard label="Total Members" value={stats?.total ?? 0} icon={Users} color="bg-blue-600" />
+            <StatCard label="Total Members" value={stats?.total ?? 0} icon={Users} color="bg-purple-600" />
             <StatCard label="Active Members" value={stats?.active ?? 0} icon={UserCheck} color="bg-emerald-600" />
             <StatCard label="Inactive Members" value={stats?.inactive ?? 0} icon={UserX} color="bg-slate-500" />
             <StatCard label="Visitors" value={stats?.visitors ?? 0} icon={TrendingUp} color="bg-amber-500" />
@@ -68,7 +68,7 @@ export default function DashboardPage() {
           <div className="flex flex-wrap gap-3 mt-4">
             <a
               href="/members/new"
-              className="bg-blue-800 hover:bg-blue-900 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+              className="bg-purple-800 hover:bg-purple-900 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
             >
               + Register Member
             </a>

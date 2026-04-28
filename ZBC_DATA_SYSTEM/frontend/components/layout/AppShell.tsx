@@ -20,7 +20,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   if (loading || !user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -47,7 +47,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* Mobile top bar */}
-        <div className="md:hidden flex items-center gap-3 px-4 py-3 bg-blue-900 text-white">
+        <div className="md:hidden flex items-center gap-3 px-4 py-3 bg-purple-900 text-white">
           <button onClick={() => setSidebarOpen(true)} className="p-1">
             <Menu className="w-5 h-5" />
           </button>

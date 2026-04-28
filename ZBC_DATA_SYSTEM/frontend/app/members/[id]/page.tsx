@@ -126,7 +126,7 @@ export default function MemberDetailPage() {
     return (
       <AppShell>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full" />
+          <div className="animate-spin w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full" />
         </div>
       </AppShell>
     );
@@ -147,7 +147,7 @@ export default function MemberDetailPage() {
             <p className="text-slate-500 text-sm">{member.member_number}</p>
           </div>
           {canEdit && !editing && (
-            <button onClick={startEditing} className="flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-lg text-sm font-medium hover:bg-blue-900">
+            <button onClick={startEditing} className="flex items-center gap-2 px-4 py-2 bg-purple-800 text-white rounded-lg text-sm font-medium hover:bg-purple-900">
               <Edit2 className="w-4 h-4" /> Edit
             </button>
           )}
@@ -164,7 +164,7 @@ export default function MemberDetailPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* Photo card */}
           <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 flex flex-col items-center gap-4 md:col-span-1">
-            <div className="w-32 h-32 rounded-full overflow-hidden bg-slate-100 border-4 border-blue-50">
+            <div className="w-32 h-32 rounded-full overflow-hidden bg-slate-100 border-4 border-purple-50">
               {member.photo_url ? (
                 <Image
                   src={member.photo_url}
@@ -233,7 +233,7 @@ export default function MemberDetailPage() {
                     <p className="text-xs text-slate-400 mb-2">Departments</p>
                     <div className="flex flex-wrap gap-2">
                       {member.departments.map((d) => (
-                        <span key={d.id} className="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                        <span key={d.id} className="px-2.5 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
                           {d.name}
                         </span>
                       ))}
@@ -304,7 +304,7 @@ export default function MemberDetailPage() {
                           onClick={() => toggleDept(dept.id)}
                           className={`px-3 py-1 rounded-full text-xs font-medium border transition ${
                             selectedDepts.includes(dept.id)
-                              ? "bg-blue-800 text-white border-blue-800"
+                              ? "bg-purple-800 text-white border-purple-800"
                               : "border-slate-200 text-slate-600 hover:bg-slate-50"
                           }`}
                         >
@@ -326,7 +326,7 @@ export default function MemberDetailPage() {
                   <button
                     type="submit"
                     disabled={updateMutation.isPending}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-800 text-white rounded-lg text-sm font-medium hover:bg-blue-900 disabled:opacity-60"
+                    className="flex items-center gap-2 px-4 py-2 bg-purple-800 text-white rounded-lg text-sm font-medium hover:bg-purple-900 disabled:opacity-60"
                   >
                     {updateMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                     Save Changes
