@@ -1,21 +1,21 @@
 import type { NextConfig } from "next";
 
+const backendBaseUrl = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000").replace(
+  /\/+$/,
+  ""
+);
+
 const nextConfig: NextConfig = {
   turbopack: {},
-  images: {
-    remotePatterns: [
-      { protocol: "http", hostname: "localhost", port: "5000", pathname: "/uploads/**" },
-    ],
-  },
   async rewrites() {
     return [
       {
         source: "/api/v1/:path*",
-        destination: "http://localhost:5000/api/v1/:path*",
+        destination: `${backendBaseUrl}/api/v1/:path*`,
       },
       {
         source: "/uploads/:path*",
-        destination: "http://localhost:5000/uploads/:path*",
+        destination: `${backendBaseUrl}/uploads/:path*`,
       },
     ];
   },
