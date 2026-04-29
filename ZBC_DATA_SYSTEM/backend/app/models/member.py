@@ -24,6 +24,16 @@ class Member(db.Model):
     email = db.Column(db.String(120), nullable=True)
     address = db.Column(db.Text, nullable=True)
 
+    # Nationality
+    nationality_current = db.Column(db.String(200), nullable=True)
+    nationality_at_birth = db.Column(db.String(200), nullable=True)
+
+    # Household members (stored as JSON lists of names)
+    household_zbc_members_12plus = db.Column(db.JSON, nullable=True)
+    household_non_zbc_members_12plus = db.Column(db.JSON, nullable=True)
+    children_nurtured_by_zbc = db.Column(db.JSON, nullable=True)
+    children_nurtured_parents_not_zbc = db.Column(db.JSON, nullable=True)
+
     # Church info
     join_date = db.Column(db.Date, nullable=True)
     status = db.Column(
@@ -59,6 +69,12 @@ class Member(db.Model):
             "phone": self.phone,
             "email": self.email,
             "address": self.address,
+            "nationality_current": self.nationality_current,
+            "nationality_at_birth": self.nationality_at_birth,
+            "household_zbc_members_12plus": self.household_zbc_members_12plus or [],
+            "household_non_zbc_members_12plus": self.household_non_zbc_members_12plus or [],
+            "children_nurtured_by_zbc": self.children_nurtured_by_zbc or [],
+            "children_nurtured_parents_not_zbc": self.children_nurtured_parents_not_zbc or [],
             "join_date": self.join_date.isoformat() if self.join_date else None,
             "status": self.status,
             "photo_url": f"/uploads/{self.photo_path}" if self.photo_path else None,

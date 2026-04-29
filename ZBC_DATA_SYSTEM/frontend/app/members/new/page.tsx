@@ -22,6 +22,8 @@ import {
   Users,
   CheckCircle2,
   RefreshCw,
+  Globe,
+  Home,
 } from "lucide-react";
 import api from "@/lib/api";
 import type { Department } from "@/lib/types";
@@ -37,8 +39,12 @@ const schema = z.object({
   join_date: z.string().optional(),
   status: z.enum(["active", "inactive", "visitor"]),
   department_ids: z.array(z.number()).optional(),
+  nationality_current: z.string().optional(),
+  nationality_at_birth: z.string().optional(),
 });
 type FormData = z.infer<typeof schema>;
+
+const BLANK_5 = (): string[] => ["", "", "", "", ""];
 
 function dataURLtoBlob(dataURL: string): Blob {
   const arr = dataURL.split(",");
@@ -113,6 +119,18 @@ export default function NewMemberPage() {
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [dragOver, setDragOver] = useState(false);
+
+  // Household name lists (5 slots each)
+  const [zbcMembers12Plus, setZbcMembers12Plus] = useState<string[]>(BLANK_5());
+  const [nonZbcMembers12Plus, setNonZbcMembers12Plus] = useState<string[]>(BLANK_5());
+  const [childrenNurturedZbc, setChildrenNurturedZbc] = useState<string[]>(BLANK_5());
+  const [childrenNurturedNoParents, setChildrenNurturedNoParents] = useState<string[]>(BLANK_5());
+
+  const updateName = (
+    setter: React.Dispatch<React.SetStateAction<string[]>>,
+    index: number,
+    value: string
+  ) => setter((prev) => prev.map((v, i) => (i === index ? value : v)));
   const webcamRef = useRef<Webcam>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -142,6 +160,10 @@ export default function NewMemberPage() {
       const { data: created } = await api.post("/members", {
         ...formData,
         gender: formData.gender || undefined,
+        household_zbc_members_12plus: zbcMembers12Plus.filter(Boolean),
+        household_non_zbc_members_12plus: nonZbcMembers12Plus.filter(Boolean),
+        children_nurtured_by_zbc: childrenNurturedZbc.filter(Boolean),
+        children_nurtured_parents_not_zbc: childrenNurturedNoParents.filter(Boolean),
       });
 
       const photoFile = capturedPhoto
@@ -459,6 +481,147 @@ export default function NewMemberPage() {
                 )}
               </div>
             )}
+          </div>
+
+          {/* ── Step 4: Nationality ── */}
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+            <SectionHeading icon={Globe} step={4} title="Nationality" subtitle="Member's citizenship information" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <FieldWrap label="Current Nationality(ies)">
+                <div className="relative">
+                  <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 pointer-events-none" />
+                  <input
+                    {...register("nationality_current")}
+                    className={`${inputClass} pl-9`}
+                    placeholder="e.g. Malawian, British"
+                  />
+                </div>
+              </FieldWrap>
+
+              <FieldWrap label="Nationality at Birth">
+                <div className="relative">
+                  <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 pointer-events-none" />
+                  <input
+                    {...register("nationality_at_birth")}
+                    className={`${inputClass} pl-9`}
+                    placeholder="e.g. Malawian"
+                  />
+                </div>
+              </FieldWrap>
+            </div>
+          </div>
+
+          {/* ── Step 5: Household Members ── */}
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+            <SectionHeading
+              icon={Home}
+              step={5}
+              title="Household Members"
+              subtitle="Names of household and children in your care"
+            />
+
+            <div className="space-y-8">
+
+              {/* 5a – ZBC members 12+ */}
+              <div>
+                <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">
+                  Household Members Aged 12 &amp; Above Who Are ZBC Members
+                </p>
+                <p className="text-[11px] text-slate-400 mb-3">Enter up to 5 names</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {zbcMembers12Plus.map((name, i) => (
+                    <div key={i} className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-purple-400 select-none">
+                        {i + 1}.
+                      </span>
+                      <input
+                        value={name}
+                        onChange={(e) => updateName(setZbcMembers12Plus, i, e.target.value)}
+                        className={`${inputClass} pl-8`}
+                        placeholder={`Full name ${i + 1}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-slate-100" />
+
+              {/* 5b – Non-ZBC members 12+ */}
+              <div>
+                <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">
+                  Household Members Aged 12 &amp; Above Who Are <span className="text-red-500">NOT</span> ZBC Members
+                </p>
+                <p className="text-[11px] text-slate-400 mb-3">Enter up to 5 names</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {nonZbcMembers12Plus.map((name, i) => (
+                    <div key={i} className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-slate-400 select-none">
+                        {i + 1}.
+                      </span>
+                      <input
+                        value={name}
+                        onChange={(e) => updateName(setNonZbcMembers12Plus, i, e.target.value)}
+                        className={`${inputClass} pl-8`}
+                        placeholder={`Full name ${i + 1}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-slate-100" />
+
+              {/* 5c – Children <12 nurtured by ZBC */}
+              <div>
+                <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">
+                  Children Aged Under 12 In Your Care Who Receive Spiritual Nurture From ZBC
+                </p>
+                <p className="text-[11px] text-slate-400 mb-3">Enter up to 5 names</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {childrenNurturedZbc.map((name, i) => (
+                    <div key={i} className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-purple-400 select-none">
+                        {i + 1}.
+                      </span>
+                      <input
+                        value={name}
+                        onChange={(e) => updateName(setChildrenNurturedZbc, i, e.target.value)}
+                        className={`${inputClass} pl-8`}
+                        placeholder={`Child's full name ${i + 1}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-t border-slate-100" />
+
+              {/* 5d – Children nurtured by ZBC, parents NOT ZBC */}
+              <div>
+                <p className="text-xs font-bold text-slate-700 uppercase tracking-wide mb-1">
+                  Children Receiving Nurture From ZBC Whose Parents Are <span className="text-red-500">NOT</span> ZBC Members
+                </p>
+                <p className="text-[11px] text-slate-400 mb-3">Enter up to 5 names</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {childrenNurturedNoParents.map((name, i) => (
+                    <div key={i} className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-slate-400 select-none">
+                        {i + 1}.
+                      </span>
+                      <input
+                        value={name}
+                        onChange={(e) => updateName(setChildrenNurturedNoParents, i, e.target.value)}
+                        className={`${inputClass} pl-8`}
+                        placeholder={`Child's full name ${i + 1}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
           </div>
 
           {/* ── Error ── */}

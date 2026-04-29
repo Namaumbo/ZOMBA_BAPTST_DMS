@@ -85,6 +85,12 @@ def create_member():
         address=data.get("address", "").strip() or None,
         join_date=parse_date(data.get("join_date")),
         status=data.get("status", "active"),
+        nationality_current=data.get("nationality_current", "").strip() or None,
+        nationality_at_birth=data.get("nationality_at_birth", "").strip() or None,
+        household_zbc_members_12plus=data.get("household_zbc_members_12plus") or [],
+        household_non_zbc_members_12plus=data.get("household_non_zbc_members_12plus") or [],
+        children_nurtured_by_zbc=data.get("children_nurtured_by_zbc") or [],
+        children_nurtured_parents_not_zbc=data.get("children_nurtured_parents_not_zbc") or [],
     )
 
     department_ids = data.get("department_ids", [])
@@ -110,9 +116,15 @@ def update_member(member_id):
     member = db.get_or_404(Member, member_id)
     data = request.get_json(silent=True) or {}
 
-    for field in ("first_name", "last_name", "gender", "phone", "email", "address", "status"):
+    for field in ("first_name", "last_name", "gender", "phone", "email", "address", "status",
+                  "nationality_current", "nationality_at_birth"):
         if field in data:
             setattr(member, field, data[field].strip() if isinstance(data[field], str) else data[field])
+
+    for list_field in ("household_zbc_members_12plus", "household_non_zbc_members_12plus",
+                       "children_nurtured_by_zbc", "children_nurtured_parents_not_zbc"):
+        if list_field in data:
+            setattr(member, list_field, data[list_field] or [])
 
     if "dob" in data:
         member.dob = parse_date(data["dob"])
