@@ -36,6 +36,11 @@ class Member(db.Model):
 
     # Church info
     join_date = db.Column(db.Date, nullable=True)
+    membership_type = db.Column(
+        db.Enum("full", "associate", name="membership_type_enum"),
+        nullable=True,
+        default="full",
+    )
     status = db.Column(
         db.Enum("active", "inactive", "visitor", name="member_status"),
         nullable=False,
@@ -76,6 +81,7 @@ class Member(db.Model):
             "children_nurtured_by_zbc": self.children_nurtured_by_zbc or [],
             "children_nurtured_parents_not_zbc": self.children_nurtured_parents_not_zbc or [],
             "join_date": self.join_date.isoformat() if self.join_date else None,
+            "membership_type": self.membership_type,
             "status": self.status,
             "photo_url": f"/uploads/{self.photo_path}" if self.photo_path else None,
             "created_at": self.created_at.isoformat(),

@@ -24,6 +24,7 @@ const schema = z.object({
   address: z.string().optional(),
   join_date: z.string().optional(),
   status: z.enum(["active", "inactive", "visitor"]),
+  membership_type: z.enum(["full", "associate"]).optional(),
   department_ids: z.array(z.number()).optional(),
 });
 type FormData = z.infer<typeof schema>;
@@ -76,6 +77,7 @@ export default function MemberDetailPage() {
       address: member.address ?? "",
       join_date: member.join_date ?? "",
       status: member.status,
+      membership_type: (member.membership_type as FormData["membership_type"]) ?? "full",
       department_ids: member.departments?.map((d) => d.id) ?? [],
     });
     setEditing(true);
@@ -221,6 +223,7 @@ export default function MemberDetailPage() {
                     ["Phone", member.phone || "—"],
                     ["Email", member.email || "—"],
                     ["Address", member.address || "—"],
+                    ["Membership Type", member.membership_type === "associate" ? "Associate Member" : member.membership_type === "full" ? "Full Member" : "—"],
                   ].map(([label, value]) => (
                     <div key={label}>
                       <dt className="text-slate-400 text-xs mb-0.5">{label}</dt>
@@ -289,6 +292,13 @@ export default function MemberDetailPage() {
                       <option value="active">Active</option>
                       <option value="inactive">Inactive</option>
                       <option value="visitor">Visitor</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="field-label">Membership Type</label>
+                    <select {...register("membership_type")} className="input-field">
+                      <option value="full">Full Member</option>
+                      <option value="associate">Associate Member</option>
                     </select>
                   </div>
                 </div>

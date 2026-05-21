@@ -20,6 +20,24 @@ def parse_date(value):
         return None
 
 
+@members_bp.get("/cards")
+@jwt_required()
+def get_cards():
+    from_id = request.args.get("from_id", type=int)
+    to_id = request.args.get("to_id", type=int)
+    if from_id is None or to_id is None:
+        return jsonify({"error": "from_id and to_id are required"}), 400
+    if to_id < from_id:
+        return jsonify({"error": "to_id must be >= from_id"}), 400
+    members = (
+        Member.query
+        .filter(Member.id >= from_id, Member.id <= to_id)
+        .order_by(Member.id)
+        .all()
+    )
+    return jsonify([m.to_dict() for m in members]), 200
+
+
 @members_bp.get("")
 @jwt_required()
 def list_members():
@@ -85,6 +103,7 @@ def create_member():
         address=data.get("address", "").strip() or None,
         join_date=parse_date(data.get("join_date")),
         status=data.get("status", "active"),
+        membership_type=data.get("membership_type", "full"),
         nationality_current=data.get("nationality_current", "").strip() or None,
         nationality_at_birth=data.get("nationality_at_birth", "").strip() or None,
         household_zbc_members_12plus=data.get("household_zbc_members_12plus") or [],
@@ -117,7 +136,7 @@ def update_member(member_id):
     data = request.get_json(silent=True) or {}
 
     for field in ("first_name", "last_name", "gender", "phone", "email", "address", "status",
-                  "nationality_current", "nationality_at_birth"):
+                  "membership_type", "nationality_current", "nationality_at_birth"):
         if field in data:
             setattr(member, field, data[field].strip() if isinstance(data[field], str) else data[field])
 

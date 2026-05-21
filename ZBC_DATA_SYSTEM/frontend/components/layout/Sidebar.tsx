@@ -8,6 +8,7 @@ import {
   Users,
   Building2,
   FileBarChart2,
+  CreditCard,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -19,6 +20,7 @@ const nav = [
   { href: "/members", label: "Members", icon: Users, roles: ["admin", "data-entry", "viewer"] },
   { href: "/departments", label: "Departments", icon: Building2, roles: ["admin", "data-entry", "viewer"] },
   { href: "/reports", label: "Reports", icon: FileBarChart2, roles: ["admin", "data-entry", "viewer"] },
+  { href: "/cards", label: "Card Generation", icon: CreditCard, roles: ["admin", "data-entry"] },
   { href: "/settings/users", label: "User Management", icon: Settings, roles: ["admin"] },
 ];
 

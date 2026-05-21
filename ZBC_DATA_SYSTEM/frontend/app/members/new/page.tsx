@@ -38,6 +38,7 @@ const schema = z.object({
   address: z.string().optional(),
   join_date: z.string().optional(),
   status: z.enum(["active", "inactive", "visitor"]),
+  membership_type: z.enum(["full", "associate"]),
   department_ids: z.array(z.number()).optional(),
   nationality_current: z.string().optional(),
   nationality_at_birth: z.string().optional(),
@@ -150,7 +151,7 @@ export default function NewMemberPage() {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { status: "active", department_ids: [] },
+    defaultValues: { status: "active", membership_type: "full", department_ids: [] },
   });
 
   const selectedDepts = watch("department_ids") ?? [];
@@ -445,6 +446,13 @@ export default function NewMemberPage() {
                   <option value="active">✅ Active Member</option>
                   <option value="visitor">👋 Visitor</option>
                   <option value="inactive">⏸ Inactive</option>
+                </select>
+              </FieldWrap>
+
+              <FieldWrap label="Membership Type">
+                <select {...register("membership_type")} className={inputClass}>
+                  <option value="full">Full Member</option>
+                  <option value="associate">Associate Member</option>
                 </select>
               </FieldWrap>
             </div>

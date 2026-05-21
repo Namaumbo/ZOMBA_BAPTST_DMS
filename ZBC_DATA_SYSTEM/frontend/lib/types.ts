@@ -10,6 +10,7 @@ export interface Member {
   email: string | null;
   address: string | null;
   join_date: string | null;
+  membership_type: "full" | "associate" | null;
   status: "active" | "inactive" | "visitor";
   photo_url: string | null;
   departments?: { id: number; name: string }[];
