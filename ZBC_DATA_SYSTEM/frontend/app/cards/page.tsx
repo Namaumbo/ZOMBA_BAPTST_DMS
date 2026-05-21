@@ -81,16 +81,17 @@ function MemberCard({
             width: "12mm",
             height: "12mm",
             borderRadius: "50%",
-            background: "linear-gradient(145deg, #b45309, #f59e0b, #d97706)",
+            background: "#ffffff",
             border: "0.5mm solid #fde68a",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
-            boxShadow: "0 0 3mm rgba(253,230,138,0.5)",
+            // boxShadow: "0 0 3mm rgba(253,230,138,0.5)",
           }}
         >
-          <Church style={{ width: "7mm", height: "7mm", color: "white" }} />
+          {/* <Church style={{ width: "7mm", height: "7mm", color: "white" }} /> */}
+          <img src="/image.png" alt="ZBC Church Logo" width={40} height={40} />
         </div>
 
         {/* Title */}
@@ -272,13 +273,24 @@ function MemberCard({
   );
 }
 
-const PRINT_STYLES = `
-@media print {
-  body > * { display: none !important; }
-  #card-print-root { display: block !important; position: fixed; inset: 0; background: white; z-index: 99999; }
+const PRINT_WINDOW_STYLES = `
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6mm;
+    padding: 8mm;
+    align-content: flex-start;
+  }
   @page { margin: 8mm; size: A4; }
-}
-#card-print-root { display: none; }
+  @media print {
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+  }
 `;
 
 export default function CardGenerationPage() {
@@ -299,12 +311,32 @@ export default function CardGenerationPage() {
   });
 
   const handlePrint = () => {
-    const root = document.getElementById("card-print-root");
-    if (root) {
-      root.style.display = "block";
-      window.print();
-      root.style.display = "none";
+    const container = document.getElementById("card-print-root");
+    if (!container) return;
+
+    const printWindow = window.open("", "_blank", "width=900,height=700");
+    if (!printWindow) {
+      alert("Please allow pop-ups for this site so cards can be printed.");
+      return;
     }
+
+    printWindow.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ZBC Membership Cards</title>
+  <base href="${window.location.origin}" />
+  <style>${PRINT_WINDOW_STYLES}</style>
+</head>
+<body>${container.innerHTML}</body>
+</html>`);
+
+    printWindow.document.close();
+
+    printWindow.onload = () => {
+      printWindow.focus();
+      printWindow.print();
+    };
   };
 
   const issueDateFormatted = issueDate
@@ -325,7 +357,6 @@ export default function CardGenerationPage() {
 
   return (
     <AppShell>
-      <style dangerouslySetInnerHTML={{ __html: PRINT_STYLES }} />
 
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-6">
@@ -454,9 +485,13 @@ export default function CardGenerationPage() {
         )}
       </div>
 
-      {/* Hidden print-only area */}
-      <div id="card-print-root">
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "4mm", padding: "0" }}>
+      {/* Off-screen container — innerHTML is read by handlePrint */}
+      <div
+        id="card-print-root"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", top: 0, pointerEvents: "none" }}
+      >
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "6mm", padding: "0" }}>
           {cards.map((member) => (
             <MemberCard
               key={member.id}

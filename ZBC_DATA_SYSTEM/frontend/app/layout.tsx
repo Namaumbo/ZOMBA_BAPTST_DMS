@@ -11,9 +11,6 @@ export const metadata: Metadata = {
   title: "ZBC Church Data System",
   description: "Church member data management system",
   manifest: "/manifest.json",
-  icons: {
-    icon: "/public/image.png",
-  },
 };
 
 export const viewport: Viewport = {
