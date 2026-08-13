@@ -1,0 +1,33 @@
+# Unrelated sibling projects — do not commit with Zomba Baptist DMS
+bullGPT/
+BIDHUB-PROJECT/
+BIDHUB-WEBSITE/
+bidhub2/
+Flask-Practise/
+Goaf-planning/
+NIVEO_SYSTEMS/
+PLS-portifolio/
+docs/
+forex-bot/
+fox-bot2/
+grid-strategy/
+roy/
+scalper/
+school-project/
+vite-nyasa/
+wealth-ai-frontend/
+website/
+website_niveofy_fe/
+weekly_report_for_gen/
+zida/
+ZBC-DATA-PROJECT/
+cover_letter_Daelo.pdf
+
+# Python / Node junk
+**/__pycache__/
+**/*.pyc
+**/venv/
+**/node_modules/
+**/.env
+**/.next/
+.DS_Store
